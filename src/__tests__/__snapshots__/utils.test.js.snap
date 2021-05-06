@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get 3 or above gpa students 1`] = `
+Array [
+  Object {
+    "gpa": 4,
+    "name": "st4",
+  },
+  Object {
+    "gpa": 3.1,
+    "name": "st7",
+  },
+]
+`;
+
+exports[`get 3 or above gpa students 3`] = `"<div class='a'>Testing</div>"`;

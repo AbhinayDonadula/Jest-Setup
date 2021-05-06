@@ -1,0 +1,39 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "jest/globals": true
+    },
+    "extends": [
+        "plugin:prettier/recommended",
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:jest/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "prettier", "jest-dom", "jest"],
+    "rules": {
+        "prettier/prettier": "error",
+        "linebreak-style": 0,
+        "indent": "off",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
+    },
+    "overrides": [
+        {
+            "files": ["**/*.spec.js", "**/*.spec.jsx"],
+            "env": {
+                "jest": true
+            }
+        }
+    ]
+}
