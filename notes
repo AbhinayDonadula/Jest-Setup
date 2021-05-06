@@ -1,0 +1,99 @@
+## Jest training outline:
+-- setup jest 
+-- talk about js-dom
+-- css mock
+-- extend expect 
+-- extend expect with @testinglibrary/jest-dom
+-- jest snapshot
+-- jest watch mode
+-- jest debug
+-- code coverage
+-- lint runner
+
+
+
+
+### hest helper plugins/libraries etc
+npm i @types/jest -- for jest intellisense
+jest vscode plugin
+
+
+### dependecies:
+need babel in order to run tests that are es5+, 
+if babelrc is available then jest is smart enough to read it and use babel to transform the test cases
+
+#### jsdom :
+simulate a browser environment in node
+add console.log(window) and then run "npm t -- --env=node", it will fail
+	or
+jest config, add testEnvironment flag
+
+
+### how do we handle css files with jest mocking:
+add moduleNameMapper to jest config and point it to the style mock file
+
+
+### extend jest with extra utilities
+https://github.com/jest-community/jest-extended
+
+
+### extend testing library with jest dom utilities
+https://github.com/testing-library/jest-dom (import '@testing-library/jest-dom/extend-expect')
+	or 
+//jest config file
+setupFilesAfterEnv: [
+        'jest-extended',
+        '@testing-library/jest-dom/extend-expect',
+    ],
+
+
+
+### jest snapshot testing
+https://jestjs.io/docs/snapshot-testing
+toMatchSnapshot
+toMatchInlineSnapshot
+
+
+### jest watch mode
+jest --watch
+talk about all the watch mode options 
+
+
+
+### jest debug
+npm script ("test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch")
+
+--runInBand: ensures that all the tests are in seq mode or same node process and 
+             node doesn't spin up a new node process for parallel test execution.
+	
+execute this in chrome, opens the inspect mode
+chrome://inspect
+
+
+
+### code coverage
+"test:coverage": "jest --coverage"
+
+collectFromCoverage in jest.config
+
+thresholds in jest.config:
+coverageThreshold: {
+        global: {
+            statements: 60,
+            branches: 100,
+            functions: 45,
+            lines: 100,
+        },
+    },
+	
+	
+	
+	
+### linting with jest runner
+create a jest.lint.js 
+add this to projects under jest.config
+
+
+### multiple project jest configs
+jest-watch-select-projects
+jest-watch-typeahead
