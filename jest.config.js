@@ -18,4 +18,9 @@ module.exports = {
         },
     },
     projects: ['<rootDir>/jest.config.js', '<rootDir>/jest.lint.js'],
+    watchPlugins: [
+        'jest-watch-select-projects',
+        'jest-watch-typeahead/filename',
+        'jest-watch-typeahead/testname',
+    ],
 };
