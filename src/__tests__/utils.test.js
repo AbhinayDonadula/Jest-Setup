@@ -15,7 +15,7 @@ const testHTML = "<div class='a'>Testing</div>";
 test('get 3 or above gpa students', () => {
     // expect(getAbove3GPAStuds(students)).toEqual([{ name: 'st4', gpa: 4 }]);
 
-    // expect(getAbove3GPAStuds(students)).toBeArrayOfSize(1);
+    // expect(getAbove3GPAStuds(students)).toBeArrayOfSize(2);
 
     // expect(getAbove3GPAStuds([])).toBeArrayOfSize(0);
 
