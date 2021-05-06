@@ -1,5 +1,5 @@
 module.exports = {
-    displayName: 'Abhinay',
+    displayName: 'jest',
     testEnvironment: 'jest-environment-jsdom',
     moduleNameMapper: {
         '\\.css$': require.resolve('./src/testUtils/style-mock.js'),

@@ -13,7 +13,6 @@ const students = [
 const testHTML = "<div class='a'>Testing</div>";
 
 test('get 3 or above gpa students', () => {
-    const a = 30;
     expect(getAbove3GPAStuds(students)).toBeArrayOfSize(2);
 
     expect(getAbove3GPAStuds([])).toBeArrayOfSize(0);
