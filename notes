@@ -12,9 +12,13 @@
 
 -- RTL
     -- create 2 diff test cases, one with RTl and other without RTl
-    -- talk about render
+    -- talk about render and rerender
     -- debug
     -- event handling with fireEvent
+    -- getBy and queryBy(use this if element is not rendered) helpers from render
+
+- Accessibility testing
+    -- npm i jest-axe
 
 
 ### hest helper plugins/libraries etc
@@ -110,3 +114,25 @@ https://github.com/testing-library/react-testing-library/blob/main/other/cheat-s
 
 ### jest cheatsheet
 https://devhints.io/jest
+
+
+### jest axe
+const { axe, toHaveNoViolations } = require('jest-axe')
+ 
+expect.extend(toHaveNoViolations)
+expect(await axe(html)).toHaveNoViolations()
+
+you need this config in babelrc for async/await to work in jest tests
+plugins: [
+        '@babel/plugin-transform-react-jsx',
+        [
+            '@babel/plugin-transform-runtime',
+            {
+                absoluteRuntime: false,
+                corejs: false,
+                helpers: true,
+                regenerator: true,
+                version: '7.0.0-beta.0',
+            },
+        ],
+    ],

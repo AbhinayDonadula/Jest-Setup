@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { getQueriesForElement } from '@testing-library/dom';
 import App from '../app/App';
+
+expect.extend(toHaveNoViolations);
 
 describe('App test cases', () => {
     const testWith = 'Jest is the best';
@@ -33,14 +36,22 @@ describe('App test cases', () => {
         expect(spanEl).toHaveTextContent(testWith);
     });
 
-    test.only('user event - RTL', () => {
-        const { getByPlaceholderText, debug, getByRole } = render(
+    test('user event - RTL', () => {
+        const { getByPlaceholderText, getByRole, queryByRole } = render(
             <App title="Jest is the best" />
         );
+        expect(queryByRole('alert')).toBeNull();
 
         const input = getByPlaceholderText('type here');
-        debug(input);
         user.type(input, '20');
+        expect(queryByRole('alert')).not.toBeNull();
         expect(getByRole('alert')).toHaveTextContent('hi');
+    });
+
+    // accesibility tests
+    test.only('jest axe accesibility test case', async () => {
+        const { container } = render(<App title="Jest is the best" />);
+        const results = await axe(container);
+        expect(results).toHaveNoViolations();
     });
 });
