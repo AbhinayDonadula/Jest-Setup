@@ -29,6 +29,8 @@
         "jest/prefer-to-have-length": "warn",
         "jest/valid-expect": "error",
         "react/jsx-filename-extension": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/jsx-indent-props": 0,
         "comma-dangle": 0
     },
     "overrides": [

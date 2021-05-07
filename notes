@@ -10,7 +10,11 @@
 -- code coverage
 -- lint runner
 
-
+-- RTL
+    -- create 2 diff test cases, one with RTl and other without RTl
+    -- talk about render
+    -- debug
+    -- event handling with fireEvent
 
 
 ### hest helper plugins/libraries etc
@@ -21,6 +25,7 @@ jest vscode plugin
 ### dependecies:
 need babel in order to run tests that are es5+, 
 if babelrc is available then jest is smart enough to read it and use babel to transform the test cases
+
 
 #### jsdom :
 simulate a browser environment in node
@@ -97,3 +102,11 @@ add this to projects under jest.config
 ### multiple project jest configs
 jest-watch-select-projects
 jest-watch-typeahead
+
+
+### react testing library cheatsheet
+https://github.com/testing-library/react-testing-library/blob/main/other/cheat-sheet.pdf
+
+
+### jest cheatsheet
+https://devhints.io/jest
