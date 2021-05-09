@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { getQueriesForElement } from '@testing-library/dom';
 import App from '../app/App';
+import { getTodoAPI as mockGetTodoAPI } from '../app/api';
 
 expect.extend(toHaveNoViolations);
+jest.mock('../app/api');
 
 describe('App test cases', () => {
     const testWith = 'Jest is the best';
@@ -49,9 +51,22 @@ describe('App test cases', () => {
     });
 
     // accesibility tests
-    test.only('jest axe accesibility test case', async () => {
+    test('jest axe accesibility test case', async () => {
         const { container } = render(<App title="Jest is the best" />);
         const results = await axe(container);
         expect(results).toHaveNoViolations();
+    });
+
+    // mock api test
+    test.only('mock api call', async () => {
+        mockGetTodoAPI.mockResolvedValueOnce({ data: { todo: [] } });
+        const { getByRole, getByText } = render(<App />);
+
+        const btn = getByText('Get Todos');
+        fireEvent.click(btn);
+        expect(mockGetTodoAPI).toHaveBeenCalledTimes(1);
+        await waitFor(() => {
+            expect(getByRole('banner')).toHaveTextContent('got my response');
+        });
     });
 });
