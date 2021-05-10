@@ -8,10 +8,49 @@ import App from '../app/App';
 import { getTodoAPI as mockGetTodoAPI } from '../app/api';
 
 expect.extend(toHaveNoViolations);
+
+const filterTestFn = jest.fn(() => true).mockImplementationOnce(() => false);
+
 jest.mock('../app/api');
+let a = null;
+
+beforeAll(() => {
+    a = jest
+        .spyOn(console, 'log')
+        .mockImplementation(() => 'Abhinay Donadula :)');
+});
+
+afterAll(() => {
+    console.log('testing again');
+    a.mockRestore();
+    console.log('testing again 2');
+});
 
 describe('App test cases', () => {
     const testWith = 'Jest is the best';
+
+    test.only('testing spy', () => {
+        console.log('tst this');
+    });
+
+    test.todo('add should render succesfully');
+
+    // mock api test
+    test('mock api call', async () => {
+        const result = [1, 2].filter((x) => filterTestFn(x));
+        expect(filterTestFn).toBeCalledWith(expect.anything());
+        console.log(result);
+
+        mockGetTodoAPI.mockResolvedValueOnce({ data: { todo: [] } });
+        const { getByRole, getByText } = render(<App />);
+
+        const btn = getByText('Get Todos');
+        fireEvent.click(btn);
+        expect(mockGetTodoAPI).toHaveBeenCalledTimes(1);
+        await waitFor(() => {
+            expect(getByRole('banner')).toHaveTextContent('got my response');
+        });
+    });
 
     test('successfully renders - no RTL', () => {
         const div = document.createElement('div');
@@ -31,8 +70,7 @@ describe('App test cases', () => {
     });
 
     test('successfully renders with RTL', () => {
-        const { getByTitle, debug } = render(<App title="Jest is the best" />);
-        debug();
+        const { getByTitle } = render(<App title="Jest is the best" />);
 
         const spanEl = getByTitle(testWith);
         expect(spanEl).toHaveTextContent(testWith);
@@ -55,18 +93,5 @@ describe('App test cases', () => {
         const { container } = render(<App title="Jest is the best" />);
         const results = await axe(container);
         expect(results).toHaveNoViolations();
-    });
-
-    // mock api test
-    test.only('mock api call', async () => {
-        mockGetTodoAPI.mockResolvedValueOnce({ data: { todo: [] } });
-        const { getByRole, getByText } = render(<App />);
-
-        const btn = getByText('Get Todos');
-        fireEvent.click(btn);
-        expect(mockGetTodoAPI).toHaveBeenCalledTimes(1);
-        await waitFor(() => {
-            expect(getByRole('banner')).toHaveTextContent('got my response');
-        });
     });
 });
