@@ -12,27 +12,9 @@ expect.extend(toHaveNoViolations);
 const filterTestFn = jest.fn(() => true).mockImplementationOnce(() => false);
 
 jest.mock('../app/api');
-let a = null;
-
-beforeAll(() => {
-    a = jest
-        .spyOn(console, 'log')
-        .mockImplementation(() => 'Abhinay Donadula :)');
-});
-
-afterAll(() => {
-    console.log('testing again');
-    a.mockRestore();
-    console.log('testing again 2');
-});
 
 describe('App test cases', () => {
     const testWith = 'Jest is the best';
-
-    test.only('testing spy', () => {
-        console.log('tst this');
-    });
-
     test.todo('add should render succesfully');
 
     // mock api test

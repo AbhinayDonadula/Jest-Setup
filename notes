@@ -136,3 +136,11 @@ plugins: [
             },
         ],
     ],
+
+
+#### Mocking with Jest
+
+talk about
+
+-- function mocking
+-- async function mocking
