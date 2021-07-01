@@ -1,6 +1,5 @@
-export const getTodoAPI = () =>
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-        .then((response) => response.json())
-        .then((json) => {
-            setResp(true);
-        });
+export const getUser = () => {
+    console.log('getting user');
+
+    return fetch('/user').then((resp) => resp.json());
+};

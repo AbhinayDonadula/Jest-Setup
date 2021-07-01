@@ -1,38 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import { getQueriesForElement } from '@testing-library/dom';
+import { getQueriesForElement, waitFor } from '@testing-library/dom';
 import App from '../app/App';
-import { getTodoAPI as mockGetTodoAPI } from '../app/api';
+import { server } from '../app/api/mocks/server';
 
 expect.extend(toHaveNoViolations);
 
-const filterTestFn = jest.fn(() => true).mockImplementationOnce(() => false);
+// Establish API mocking before all tests.
+beforeAll(() => server.listen());
+// Reset any request handlers that we may add during the tests,
+// so they don't affect other tests.
+afterEach(() => server.resetHandlers());
+// Clean up after the tests are finished.
+afterAll(() => server.close());
 
 jest.mock('../app/api');
 
-describe('App test cases', () => {
+describe('test mock service worker', () => {
+    test('mock service worker', () => {
+        const { container, debug, getByText } = render(<App />);
+        expect(container).toBeDefined();
+        const btn = getByText(/Get User/i);
+        act(() => {
+            user.click(btn);
+        });
+        waitFor(() => {
+            debug();
+        });
+    });
+});
+
+describe.skip('App test cases', () => {
     const testWith = 'Jest is the best';
     test.todo('add should render succesfully');
 
     // mock api test
-    test('mock api call', async () => {
-        const result = [1, 2].filter((x) => filterTestFn(x));
-        expect(filterTestFn).toBeCalledWith(expect.anything());
-        console.log(result);
-
-        mockGetTodoAPI.mockResolvedValueOnce({ data: { todo: [] } });
-        const { getByRole, getByText } = render(<App />);
-
-        const btn = getByText('Get Todos');
-        fireEvent.click(btn);
-        expect(mockGetTodoAPI).toHaveBeenCalledTimes(1);
-        await waitFor(() => {
-            expect(getByRole('banner')).toHaveTextContent('got my response');
-        });
-    });
 
     test('successfully renders - no RTL', () => {
         const div = document.createElement('div');

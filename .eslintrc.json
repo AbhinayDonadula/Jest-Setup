@@ -21,6 +21,7 @@
     "rules": {
         "prettier/prettier": "error",
         "linebreak-style": 0,
+        "import/prefer-default-export": 0,
         "indent": "off",
         "react/jsx-indent": "off",
         "jest/no-disabled-tests": "warn",

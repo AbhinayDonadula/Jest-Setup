@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getTodoAPI } from './api';
+import { getUser } from './api';
 
 function App({ title }) {
     const [val, setVal] = React.useState('');
@@ -9,8 +9,9 @@ function App({ title }) {
         setVal(e.target.value);
     };
 
-    const getTodos = async () => {
-        await getTodoAPI();
+    const getLoggedInUser = async () => {
+        const data = await fetch('/user');
+        console.log(data);
         setResp(true);
     };
 
@@ -23,8 +24,8 @@ function App({ title }) {
                     onChange={handleChange}
                     placeholder="type here"
                 />
-                <button onClick={getTodos} type="button">
-                    Get Todos
+                <button onClick={getLoggedInUser} type="button">
+                    Get User
                 </button>
             </form>
 
